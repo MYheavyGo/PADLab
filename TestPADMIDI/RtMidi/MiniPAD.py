@@ -1,4 +1,4 @@
-import sys
+"""import sys
 import rtmidi_python
 import threading
 
@@ -46,3 +46,4 @@ print 'HIT ENTER TO EXIT'
 sys.stdin.read(1)
 for c in collectors:
     c.quit = True
+"""
