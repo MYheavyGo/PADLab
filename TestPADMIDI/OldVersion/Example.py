@@ -95,8 +95,7 @@ import sys
 
 from pygame import midi
 from pygame import time
-
-from launchpad_charset import *
+from Utils.launchpad_charset import *
 
 __author__ = 'CP-12GSP'
 
@@ -653,7 +652,6 @@ def main():
 
     LP.Reset()
     LP.Close()
-    __Midi.__del__()
 
 
 if __name__ == '__main__':
