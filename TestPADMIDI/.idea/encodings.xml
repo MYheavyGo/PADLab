@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/Main.py" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/OldVersion/Example.py" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/RtMidi/MiniPAD.py" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Utils/launchpad_device.py" charset="UTF-8" />
   </component>
 </project>

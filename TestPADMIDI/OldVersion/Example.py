@@ -574,12 +574,13 @@ def main():
 
     LP.Open()  # start it
 
+
     # the latter of these two messages might not finish (MIDI buffer too large,
     # MIDI speed too low...)
-    print("HELLO")
-    LP.LedCtrlString('HELLO', 3, 1, 0)  # display HELLO in red
-    print("USER")
-    LP.LedCtrlString('USER', 0, 3, -1)  # scroll USER in green, from right to left
+    # print("HELLO")
+    # LP.LedCtrlString('HELLO', 3, 1, 0)  # display HELLO in red
+    # print("USER")
+    # LP.LedCtrlString('USER', 0, 3, -1)  # scroll USER in green, from right to left
 
     # try to give it some extra time:
     # TESTING S/MINI
@@ -589,66 +590,66 @@ def main():
     LP.LedAllOn()
     time.wait(3000)
 
-    # control of automap buttons and LEDs
-    print("---\nAutomap buttons.")
-    for n in range(3):
-        for i in range(0, 8):
-            LP.LedCtrlAutomap(i, 3, 0)
-            time.wait(50)
-        for i in range(0, 8):
-            LP.LedCtrlAutomap(i, 0, 3)
-            time.wait(50)
-    for i in range(0, 8):
-        LP.LedCtrlAutomap(i, 0, 0)
+    # # control of automap buttons and LEDs
+    # # print("---\nAutomap buttons.")
+    # # for n in range(3):
+    #     for i in range(0, 8):
+    #         LP.LedCtrlAutomap(i, 3, 0)
+    #         time.wait(50)
+    #     for i in range(0, 8):
+    #         LP.LedCtrlAutomap(i, 0, 3)
+    #         time.wait(50)
+    # for i in range(0, 8):
+    #     LP.LedCtrlAutomap(i, 0, 0)
 
-    # random output until button "arm" (lower right) is pressed
-    print("---\nRandom madness. Stop by hitting the ARM button (lower right)")
-    print("Remember the PyGame MIDI bug:")
-    print("If the ARM button has no effect, hit an automap button (top row)")
-    print("and try again...")
-    while 1:
-        LP.LedCtrlRaw(random.randint(0, 127), random.randint(0, 3), random.randint(0, 3))
-        time.wait(10)
-        but = LP.ButtonStateRaw()
-        if but:
-            print(but[0])
-            if but[0] == 120:
-                break
-
-    # fast update method
-    print("---\nFast update via color table.")
-    g = LP.LedGetColor(0, 3)
-    r = LP.LedGetColor(3, 0)
-    y = LP.LedGetColor(3, 3)
-    ledTab = []
-    for i in range(80):
-        ledTab.append(r)
-        ledTab.append(g)
-        ledTab.append(y)
-    LP.LedCtrlRawRapid(ledTab)
-
-    # turn off every pressed key
-    print("---\nPress some buttons. End by pushing ARM.")
-    while 1:
-        but = LP.ButtonStateRaw()
-        if but != []:
-            print(but)
-            if but == [120, True]:
-                break
-            LP.LedCtrlRaw(but[0], 3 if but[1] else 0, 0)
-
-    # query buttons via the "xy return strategy"
-    print("---\nPress some buttons. End by pushing ARM.")
-    while True:
-        time.wait(10)
-        but = LP.ButtonStateXY()
-        if but != []:
-            LP.LedCtrlXY(but[0], but[1], 3, 0)
-            print(but)
-            if but == [8, 8, True]:
-                break
-
-    print("---\nGoodbye...")
+    # # random output until button "arm" (lower right) is pressed
+    # print("---\nRandom madness. Stop by hitting the ARM button (lower right)")
+    # print("Remember the PyGame MIDI bug:")
+    # print("If the ARM button has no effect, hit an automap button (top row)")
+    # print("and try again...")
+    # while 1:
+    #     LP.LedCtrlRaw(random.randint(0, 127), random.randint(0, 3), random.randint(0, 3))
+    #     time.wait(10)
+    #     but = LP.ButtonStateRaw()
+    #     if but:
+    #         print(but[0])
+    #         if but[0] == 120:
+    #             break
+    #
+    # # fast update method
+    # print("---\nFast update via color table.")
+    # g = LP.LedGetColor(0, 3)
+    # r = LP.LedGetColor(3, 0)
+    # y = LP.LedGetColor(3, 3)
+    # ledTab = []
+    # for i in range(80):
+    #     ledTab.append(r)
+    #     ledTab.append(g)
+    #     ledTab.append(y)
+    # LP.LedCtrlRawRapid(ledTab)
+    #
+    # # turn off every pressed key
+    # print("---\nPress some buttons. End by pushing ARM.")
+    # while 1:
+    #     but = LP.ButtonStateRaw()
+    #     if but != []:
+    #         print(but)
+    #         if but == [120, True]:
+    #             break
+    #         LP.LedCtrlRaw(but[0], 3 if but[1] else 0, 0)
+    #
+    # # query buttons via the "xy return strategy"
+    # print("---\nPress some buttons. End by pushing ARM.")
+    # while True:
+    #     time.wait(10)
+    #     but = LP.ButtonStateXY()
+    #     if but != []:
+    #         LP.LedCtrlXY(but[0], but[1], 3, 0)
+    #         print(but)
+    #         if but == [8, 8, True]:
+    #             break
+    #
+    # print("---\nGoodbye...")
 
     LP.Reset()
     LP.Close()
