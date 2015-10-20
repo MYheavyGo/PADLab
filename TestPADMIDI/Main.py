@@ -1,13 +1,13 @@
 import sys
 import time
-import rtmidi2
-import numpy as np
+import rtmidi_python as rtmidi
+# import numpy as np
 
 MIDI_ON_LED = 128
 MIDI_OFF_LED = 144
 MIDI_GREEN = 0
 MIDI_RED = 0
-INDEX_COLOR = 1
+INDEX_COLOR = [0, 1, 2, 3]
 print(sys.version + "\n" + str(sys.api_version) + "\n" + str(sys.version_info) + "\n" + str(sys.getwindowsversion()))
 
 
@@ -15,7 +15,7 @@ class ColorList:
     def __init__(self):
         self.colors = None
         self.init_color()
-        print(self.colors)
+        # print(self.colors)
 
     def init_color(self):
         self.colors = []
@@ -56,14 +56,15 @@ class ButtonTable:
 class LaunchPAD:
 
     def __init__(self):
-        self.midiOut = rtmidi2.MidiOut()
-        self.midiIn = rtmidi2.MidiIn()
+        self.midiOut = rtmidi.MidiOut()
+        self.midiIn = rtmidi.MidiIn()
         self.note = None
+        self.color = None
         self.pad = ButtonTable()
         self.rgb = ColorList()
         self.midiOut.open_port(1)
         self.midiIn.open_port(0)
-        print(self.rgb.colors)
+        # print(self.rgb.colors)
 
     def get_led_color(self, red, green):
         led = 0
@@ -105,37 +106,50 @@ class LaunchPAD:
     def turn_on_on_press(self, index=1):
         """Allume la LED lorsqu'on presse dessus et aussi le sens contraire"""
         if self.note is not None:
-            print(self.note)
+            # print(self.note)
             time.sleep(0.05)
             color = self.get_led_color(self.rgb.colors[index][0], self.rgb.colors[index][1])
             if self.note[0] == 144 and self.note[2] > 0:
                 y = self.note[1] & 0x0f
                 x = (self.note[1] & 0xf0) >> 4
-                print(self.pad.get_cell(x, y))
+                # print(self.pad.get_cell(x, y))
                 if self.pad.get_cell(x, y)[2]:
                     self.pad.set_cell(self.pad.get_cell(x, y), x, y, False)
-                    self.midiOut.send_noteon(128, self.note[1], color)
+                    self.midiOut.send_message([128, self.note[1], color])
                 else:
                     color = 0
                     self.pad.set_cell(self.pad.get_cell(x, y), x, y, True)
-                    self.midiOut.send_noteon(144, self.note[1], color)
+                    self.midiOut.send_message([144, self.note[1], color])
 
     def reset(self):
         """Methode qui reset le PAD en eteignanr toutes les LEDs"""
-        self.midiOut.send_noteon(176, 0, 0)
+        self.midiOut.send_message([176, 0, 0])
 
 
-def main():
+def init(pad):
+    pad.color = 2
+    pad.midiOut.send_message([MIDI_ON_LED, 104, pad.get_led_color(pad.rgb.colors[pad.color][0], pad.rgb.colors[pad.color][1])])
+    pass
+
+
+def main(INDEX_COLOR=None):
     """Methode main qui permet d'initialiser l'API MIDI ainsi que le LaunchPAD"""
+    mdid = rtmidi.MidiOut()
+
     launchpad = LaunchPAD()
-    launchpad.led_all_on()
-    time.sleep(0.1)
-    launchpad.led_all_off()
+    launchpad.color = INDEX_COLOR[1]
+
+    init(launchpad)
+
+    # launchpad.led_all_on()
+    # time.sleep(0.1)
+    # launchpad.led_all_off()
     # launchpad.test_write()
 
     while True:
         message, delta_time = launchpad.midiIn.get_message()
         if message:
+            print(message)
             launchpad.note = message
             # print(message, delta_time)
 
@@ -144,17 +158,14 @@ def main():
             elif message[1] == 105:
                 launchpad.reset()
             elif message[1] == 106:
-                INDEX_COLOR = 1
+                launchpad.color = INDEX_COLOR[1]
             elif message[1] == 107:
-                INDEX_COLOR = 2
+                launchpad.color = INDEX_COLOR[2]
             elif message[1] == 108:
-                INDEX_COLOR = 3
-            elif message[1] == 109:
-                INDEX_COLOR = 4
-            elif message[1] == 110:
-                INDEX_COLOR = 5
+                launchpad.color = INDEX_COLOR[3]
             else:
-                launchpad.turn_on_on_press(index=INDEX_COLOR)
+                launchpad.turn_on_on_press(launchpad.color)
     launchpad.reset()
+    del launchpad
 
-main()
+main(INDEX_COLOR=INDEX_COLOR)
