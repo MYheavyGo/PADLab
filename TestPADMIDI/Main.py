@@ -7,12 +7,14 @@ import rtmidi_python as rtmidi
 # Numpy / Import
 import numpy as np
 # Kivy / Import
+from Cython.Compiler.Errors import message
 from kivy.app import App
 from kivy.core.window import Window
 from kivy.uix.widget import Widget
 from kivy.properties import NumericProperty, ReferenceListProperty, ObjectProperty, ListProperty
 from kivy.vector import Vector
 from kivy.clock import Clock
+from numpy.core.memmap import memmap
 
 VERSION = '0.0.1'
 TITLE = "Game / Porte ouverte CEFF"
@@ -76,12 +78,12 @@ class LaunchPAD:
             sys.exit("Pas d'appareil MIDI trouvé")
 
     def init(self, colorDefault):
-        self.baseColor = self.get_led_color(DICO_COLOR["Green_FULL"][0], DICO_COLOR["Green_FULL"][1])
-        self.midiOut.send_message([MIDI_AUTOMAP_ON, 106, self.baseColor])
-        self.baseColor = self.get_led_color(DICO_COLOR["Red_FULL"][0], DICO_COLOR["Red_FULL"][1])
-        self.midiOut.send_message([MIDI_AUTOMAP_ON, 107, self.baseColor])
-        self.baseColor = self.get_led_color(DICO_COLOR["Yellow_FULL"][0], DICO_COLOR["Yellow_FULL"][1])
-        self.midiOut.send_message([MIDI_AUTOMAP_ON, 108, self.baseColor])
+        # self.baseColor = self.get_led_color(DICO_COLOR["Green_FULL"][0], DICO_COLOR["Green_FULL"][1])
+        # self.midiOut.send_message([MIDI_AUTOMAP_ON, 106, self.baseColor])
+        # self.baseColor = self.get_led_color(DICO_COLOR["Red_FULL"][0], DICO_COLOR["Red_FULL"][1])
+        # self.midiOut.send_message([MIDI_AUTOMAP_ON, 107, self.baseColor])
+        # self.baseColor = self.get_led_color(DICO_COLOR["Yellow_FULL"][0], DICO_COLOR["Yellow_FULL"][1])
+        # self.midiOut.send_message([MIDI_AUTOMAP_ON, 108, self.baseColor])
 
         self.baseColor = colorDefault
 
@@ -180,15 +182,20 @@ class Paddle(Widget):
                         bounced.x -= ball.velocity_up
                 ball.velocity = bounced.x, bounced.y + offset
 
-    def init_move(self):
+    def init_move(self, first):
         nbrY = 8
         nbrX = 8
 
-        pos_x = Window.width // nbrX
+        pos_x = (Window.width // 2) // nbrX
         pos_y = Window.height // nbrY
+
+        print("Pos X --> ", pos_x, "Pos Y --> ", pos_y)
         for i in range(nbrX):
             for j in range(nbrY):
-                self.posPaddle.append((pos_x * i, Window.width - pos_y * j))
+                if first:
+                    self.posPaddle.append((pos_x * i, pos_y * j))
+                else:
+                    self.posPaddle.append((pos_x * i, Window.width - pos_y * j))
         print(self.posPaddle)
 
 
@@ -227,9 +234,9 @@ class Game(Widget):
     def update(self, dt):
         self.ball.move()
 
-        if Window.width >= WIDTH and self.firstTime:
-            self.player1.init_move()
-            self.player2.init_move()
+        if Window.width > WIDTH and self.firstTime:
+            self.player1.init_move(True)
+            self.player2.init_move(False)
             self.firstTime = False
 
         if isPressed:
@@ -254,14 +261,14 @@ class Game(Widget):
         x = message[1] // 16
         y = message[1] - (16 * x)
 
-        if y < posNot[x][0]:
+        print("x -->", x, "y -->", y)
+
+        if message[1] <= posNot[x][0]:
             player1.x = player1.posPaddle[y][1]
             player1.y = player1.posPaddle[y][0]
-        elif y > posNot[x][1]:
-            player2.x = player1.posPaddle[y][1]
-            player2.y = player1.posPaddle[y][0]
-        else:
-            print("Don't move")
+        elif message[1] >= posNot[x][1]:
+            player2.x = player1.posPaddle[y][0]
+            player2.y = player1.posPaddle[y][1]
 
 
 class MainApp(App):
