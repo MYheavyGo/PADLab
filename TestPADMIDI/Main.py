@@ -1,6 +1,6 @@
 # Python / Import
 from __future__ import division
-
+from random import randint
 import sys
 # rtmidi / Import
 import rtmidi_python as rtmidi
@@ -10,19 +10,19 @@ import numpy as np
 from Cython.Compiler.Errors import message
 from kivy.app import App
 from kivy.core.window import Window
+from kivy.uix.screenmanager import Screen, ScreenManager
 from kivy.uix.widget import Widget
 from kivy.properties import NumericProperty, ReferenceListProperty, ObjectProperty, ListProperty
 from kivy.vector import Vector
 from kivy.clock import Clock
-from numpy.core.memmap import memmap
 
-VERSION = '0.0.1'
+VERSION = '0.2.3'
 TITLE = "Game / Porte ouverte CEFF"
 DESCRIPTION = "Game with the Kivy and a LaunchPAD for the controller"
 
 # Constantes OpenGL
-WIDTH = 800
-HEIGHT = 720
+WIDTH = Window.width
+HEIGHT = Window.height
 
 # Constantes pour le launchPAD
 MIDI_ON_LED = 144
@@ -189,13 +189,12 @@ class Paddle(Widget):
         pos_x = (Window.width // 2) // nbrX
         pos_y = Window.height // nbrY
 
-        print("Pos X --> ", pos_x, "Pos Y --> ", pos_y)
         for i in range(nbrX):
-            for j in range(nbrY):
+            for j in range(nbrY // 2):
                 if first:
-                    self.posPaddle.append((pos_x * i, pos_y * j))
+                    self.posPaddle.append((pos_x * j, Window.height - pos_y * i))
                 else:
-                    self.posPaddle.append((pos_x * i, Window.width - pos_y * j))
+                    self.posPaddle.append((Window.width - pos_x * j, pos_y * i))
         print(self.posPaddle)
 
 
@@ -210,7 +209,6 @@ class Ball(Widget):
 
     def move(self):
         self.pos = Vector(*self.velocity) + self.pos
-
 
 class Game(Widget):
     ball = ObjectProperty(None)
@@ -250,10 +248,10 @@ class Game(Widget):
 
         if self.ball.x < self.x:
             self.player2.score += 1
-            self.serve_ball(vel=(4, 0))
+            self.serve_ball(vel=(4, randint(-10, 10)))
         if self.ball.x > self.width:
             self.player1.score += 1
-            self.serve_ball(vel=(-4, 0))
+            self.serve_ball(vel=(-4, randint(-10, 10)))
 
     def move_paddle(self, message, player1, player2):
         posNot = [(3, 4), (19, 20), (35, 36), (51, 52), (67, 68), (83, 84), (99, 100), (115, 116)]
@@ -261,15 +259,15 @@ class Game(Widget):
         x = message[1] // 16
         y = message[1] - (16 * x)
 
-        print("x -->", x, "y -->", y)
+        # print("x -->", x, "y -->", y)
 
         if message[1] <= posNot[x][0]:
-            player1.x = player1.posPaddle[y][1]
-            player1.y = player1.posPaddle[y][0]
+            print(x + y, " / x -->", player1.posPaddle[y][0], "y -->", player1.posPaddle[y][1])
+            player1.x = player1.posPaddle[x * y][0]
+            player1.y = player1.posPaddle[x * y][1]
         elif message[1] >= posNot[x][1]:
-            player2.x = player1.posPaddle[y][0]
-            player2.y = player1.posPaddle[y][1]
-
+            player2.x = player2.posPaddle[y][0]
+            player2.y = player2.posPaddle[y][1]
 
 class MainApp(App):
     def build(self):
