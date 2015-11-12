@@ -1,6 +1,6 @@
 # PADLab
-Game written in Python and use the Launchpad MINI
-The name game is 'Pong - PAD'
+1. Game written in Python and use the Launchpad MINI
+2. The name game is 'Pong - PAD'
 
 # Python
   - Use Python 3.5
