@@ -90,12 +90,11 @@
 #
 
 import string
-import random
 import sys
 
+from Utils.launchpad_charset import *
 from pygame import midi
 from pygame import time
-from Utils.launchpad_charset import *
 
 __author__ = 'CP-12GSP'
 
