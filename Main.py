@@ -1,11 +1,12 @@
 # import Python
-import random
+from random import randint
 import sys
 
 # import MIDI
 import rtmidi_python
 
 # import Pyglet
+import select
 from pyglet import font, clock, app, resource as rs
 from pyglet.window import key
 from pyglet.media import Player, SourceGroup
@@ -32,11 +33,60 @@ ball = rs.image('ball.png')
 icon = pyglet.image.load('icon.png')
 music = pyglet.resource.media('music_background.mp3', False)
 
+# Score
+player1_score = Label('0', x=0, y=0)
+player2_score = Label('0', x=0, y=0)
+
+# Class for the Game
+class Player(Sprite):
+    def __init__(self, LEFTorRIGHT, img, x, y, batch):
+        super(Player, self).__init__(img, x, y, batch=batch)
+        self.NUMBER = LEFTorRIGHT
+        self.isPressed = False
+        self.colors = None
+        self.score = 0
+
+class Ball(Sprite):
+    def __init__(self, img, x, y, batch):
+        super(Ball, self).__init__(img=img, x=x, y=y, batch=batch)
+        self.dx = 15
+        self.dy = randint(-25, 25)
+
+    def reset_ball(self, NUMBER, player1, player2):
+        if NUMBER == 0:
+            player1.score += 1
+            player1_score.text = '' + player1.score
+        elif NUMBER == 1:
+            player2.score += 1
+            player2_score.text = '' + player2.score
+        self.x = self.half_x
+        self.y = self.half_y
+        self.dx = -self.dx
+        self.dy = randint(-25, 25)
+
+    def move(self, window):
+        self.x += self.dx
+        self.y += self.dy
+
+        if self.x + self.width >= window.width:
+            self.reset_ball(0, window.players[0], window.players[1])
+        elif self.x <= 0:
+            self.reset_ball(1, window.players[0], window.players[1])
+
+        if self.y < 0:
+            self.dy = -self.dy
+            self.y = 0
+
+        if self.y > window.height:
+            self.dy = -self.dy
+            self.y = window.height - self.height
+
+
 class App(pyglet.window.Window):
     def __init__(self):
         super(App, self).__init__(width=1920, height=1200, caption=TITLE + ' / ' + VERSION, resizable=False, fullscreen=True, vsync=True)
         self.looper = SourceGroup(music.audio_format, None)
-        self.music_player = Player()
+        self.music_player = pyglet.media.Player()
         self.batch = Batch()
 
         self.looper.loop = True
@@ -46,27 +96,26 @@ class App(pyglet.window.Window):
         self.music_player.queue(self.looper)
         self.music_player.play()
 
-        self.ball = Sprite(ball, self.width // 2, self.height // 2, batch=self.batch)
-        self.player1 = Sprite(paddle, 0, 0, batch=self.batch)
-        self.player2 = Sprite(paddle, 1890, 0, batch=self.batch)
+        self.ball = Ball(ball, self.width // 2 - (ball.width // 2), self.height // 2- (ball.height // 2), batch=self.batch)
+        self.ball.half_x = self.width // 2 - (ball.width // 2)
+        self.ball.half_y = self.height // 2 - (ball.height // 2)
+        self.players = [Player(0, paddle, 0, self.height // 2 - paddle.height // 2, self.batch), Player(1, paddle, self.width - paddle.width, self.height // 2 - paddle.height // 2, self.batch)]
 
-        self.ball.velocity = 0, 0
+        self.paused = False
 
         self.keys = key.KeyStateHandler()
         pyglet.clock.schedule(self.update)
 
-    def move_ball(self, ball):
-        if ball.y >= self.height:
-            print('Change direction')
-
     def update(self,dt):
-        self.move_ball(self.ball)
+        self.ball.move(self)
         pass
 
     def on_draw(self):
         window.clear()
         background.blit(0, 0)
         self.batch.draw()
+        player1_score.draw()
+        player2_score.draw()
 
 
 if __name__ == '__main__':
@@ -77,21 +126,6 @@ if __name__ == '__main__':
 
 
 # Class for the PAD
-class Player:
-    def __init__(self, NUMBER):
-        self.NUMBER = NUMBER
-        self.isPressed = False
-        self.color = None
-
-class Ball:
-    def __init__(self):
-        self.debug = 0
-        self.x = 0
-        self.y = 0
-        self.x_old = self.x
-        self.y_old = self.y
-        self.vec_x = 2 ** 0.5 / 2
-        self.vec_y = random.choice([-1, 1]) * 2 ** 0.5 / 2
 
     # # Class logic of the Game
     # class Ball(Move):
