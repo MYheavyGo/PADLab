@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
-    <file url="file://$PROJECT_DIR$/Version - Kivy/Main.py" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/Version - Kivy/OldVersion/Example.py" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/Version - Kivy/OldVersion/__init__.py" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/Version - Kivy/RtMidi/MiniPAD.py" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/Version - Kivy/RtMidi/__init__.py" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/Version - Kivy/Utils/__init__.py" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/Version - Kivy/Utils/launchpad_charset.py" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Version - Game Engine/Main.py" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Version - Game Engine/OldVersion/Example.py" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Version - Game Engine/OldVersion/__init__.py" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Version - Game Engine/RtMidi/MiniPAD.py" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Version - Game Engine/RtMidi/__init__.py" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Version - Game Engine/Utils/__init__.py" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Version - Game Engine/Utils/launchpad_charset.py" charset="UTF-8" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

@@ -63,7 +63,7 @@ class Player(Sprite):
 class Ball(Sprite):
     def __init__(self, img, x, y, batch):
         super(Ball, self).__init__(img=img, x=x, y=y, batch=batch)
-        self.dx = 0#800 / 1000
+        self.dx = 800 / 1000
         self.dy = 1 / 1000
         self.newX = 0
         self.newY = 0
@@ -103,7 +103,7 @@ class App(pyglet.window.Window):
         self.looper = SourceGroup(music.audio_format, None)
         self.music_player = pyglet.media.Player()
         self.batch = Batch()
-        self.niveau = 3
+        self.niveau = 2
 
         self.looper.loop = True
         self.looper.queue(music)
@@ -129,7 +129,18 @@ class App(pyglet.window.Window):
         pass
 
     def level_2(self, message):
-        pass
+        nbrButton = 4
+        if message[0] == 144:
+            x = message[1] // 16
+            y = message[1] - (16 * x)
+
+            print(message, x, y, sep=' - ')
+
+            if y < 1:
+                self.players[0].x, self.players[0].y = self.players[0].positions[(x * nbrButton) + y]
+
+            if y > 6:
+                self.players[1].x, self.players[1].y = self.players[1].positions[(x * nbrButton) + nbrButton + (nbrButton - y) - 1]
 
     def level_3(self, message):
         nbrButton = 4
@@ -200,7 +211,7 @@ class App(pyglet.window.Window):
                 b.newX = intersectX + ballTravelLeft * ballSpeed * math.cos(bounceAngle)
                 b.newY = intersectY + ballTravelLeft * ballSpeed * math.sin(bounceAngle)
 
-                b.dx += 0.01
+                b.dx += 0.03
 
         if b.newX > paddle2.x - paddle2.width >= b.x:
             intersectX = paddle2.x - paddle2.width
@@ -215,7 +226,7 @@ class App(pyglet.window.Window):
                 b.newX = intersectX - ballTravelLeft * ballSpeed * math.cos(bounceAngle)
                 b.newY = intersectY - ballTravelLeft * ballSpeed * math.sin(bounceAngle)
 
-                b.dx -= 0.01
+                b.dx -= 0.03
 
         if b.newX < 0:
             paddle2.score += 1

@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ec5299d7-1bb3-4239-9920-698e22058e31" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/paddle.png" afterPath="$PROJECT_DIR$/data/paddle.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" afterPath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="TestPADMIDI.iws" />
@@ -28,8 +27,8 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-1.5944767">
-              <caret line="145" column="108" selection-start-line="145" selection-start-column="108" selection-end-line="145" selection-end-column="108" />
+            <state vertical-scroll-proportion="0.23401164">
+              <caret line="105" column="23" selection-start-line="105" selection-start-column="23" selection-end-line="105" selection-end-column="23" />
               <folding>
                 <element signature="e#16#50#0" expanded="true" />
               </folding>
@@ -477,7 +476,7 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/Version - Kivy/OldVersion/Example.py</url>
+          <url>file://$PROJECT_DIR$/Version - Game Engine/OldVersion/Example.py</url>
           <line>588</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
@@ -501,7 +500,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Version - Kivy/OldVersion/Example.py">
+    <entry file="file://$PROJECT_DIR$/Version - Game Engine/OldVersion/Example.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="406" column="0" selection-start-line="406" selection-start-column="0" selection-end-line="406" selection-end-column="0" />
@@ -509,7 +508,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Version - Kivy/Main.py">
+    <entry file="file://$PROJECT_DIR$/Version - Game Engine/Main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -517,7 +516,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Version - Kivy/OldVersion/Example.py">
+    <entry file="file://$PROJECT_DIR$/Version - Game Engine/OldVersion/Example.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="405" column="0" selection-start-line="405" selection-start-column="0" selection-end-line="405" selection-end-column="0" />
@@ -525,7 +524,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Version - Kivy/Main.py">
+    <entry file="file://$PROJECT_DIR$/Version - Game Engine/Main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -533,7 +532,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Version - Kivy/OldVersion/Example.py">
+    <entry file="file://$PROJECT_DIR$/Version - Game Engine/OldVersion/Example.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="405" column="0" selection-start-line="405" selection-start-column="0" selection-end-line="405" selection-end-column="0" />
@@ -541,7 +540,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Version - Kivy/Main.py">
+    <entry file="file://$PROJECT_DIR$/Version - Game Engine/Main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -549,7 +548,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Version - Kivy/Main.py">
+    <entry file="file://$PROJECT_DIR$/Version - Game Engine/Main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -557,7 +556,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Version - Kivy/Main.py">
+    <entry file="file://$PROJECT_DIR$/Version - Game Engine/Main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="103" column="23" selection-start-line="103" selection-start-column="23" selection-end-line="103" selection-end-column="23" />
@@ -565,7 +564,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Version - Kivy/Main.py">
+    <entry file="file://$PROJECT_DIR$/Version - Game Engine/Main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -573,14 +572,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Version - Kivy/Utils/launchpad_charset.py">
+    <entry file="file://$PROJECT_DIR$/Version - Game Engine/Utils/launchpad_charset.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="4" column="14" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="14" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Version - Kivy/OldVersion/Example.py">
+    <entry file="file://$PROJECT_DIR$/Version - Game Engine/OldVersion/Example.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="632" column="14" selection-start-line="632" selection-start-column="14" selection-end-line="632" selection-end-column="14" />
@@ -588,7 +587,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Version - Kivy/Main.py">
+    <entry file="file://$PROJECT_DIR$/Version - Game Engine/Main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="107" column="0" selection-start-line="107" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
@@ -596,14 +595,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Version - Kivy/Utils/launchpad_charset.py">
+    <entry file="file://$PROJECT_DIR$/Version - Game Engine/Utils/launchpad_charset.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="4" column="14" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="14" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Version - Kivy/OldVersion/Example.py">
+    <entry file="file://$PROJECT_DIR$/Version - Game Engine/OldVersion/Example.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -611,7 +610,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Version - Kivy/Main.py">
+    <entry file="file://$PROJECT_DIR$/Version - Game Engine/Main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="24" column="31" selection-start-line="24" selection-start-column="31" selection-end-line="24" selection-end-column="31" />
@@ -619,7 +618,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Version - Kivy/OldVersion/Example.py">
+    <entry file="file://$PROJECT_DIR$/Version - Game Engine/OldVersion/Example.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -627,14 +626,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Version - Kivy/RtMidi/MiniPAD.py">
+    <entry file="file://$PROJECT_DIR$/Version - Game Engine/RtMidi/MiniPAD.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="48" column="3" selection-start-line="48" selection-start-column="3" selection-end-line="48" selection-end-column="3" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Version - Kivy/Main.py">
+    <entry file="file://$PROJECT_DIR$/Version - Game Engine/Main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -642,77 +641,77 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Version - Kivy/RtMidi/MiniPAD.py">
+    <entry file="file://$PROJECT_DIR$/Version - Game Engine/RtMidi/MiniPAD.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Version - Kivy/RtMidi/MiniPAD.py">
+    <entry file="file://$PROJECT_DIR$/Version - Game Engine/RtMidi/MiniPAD.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Version - Kivy/RtMidi/MiniPAD.py">
+    <entry file="file://$PROJECT_DIR$/Version - Game Engine/RtMidi/MiniPAD.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Version - Kivy/RtMidi/MiniPAD.py">
+    <entry file="file://$PROJECT_DIR$/Version - Game Engine/RtMidi/MiniPAD.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Version - Kivy/RtMidi/MiniPAD.py">
+    <entry file="file://$PROJECT_DIR$/Version - Game Engine/RtMidi/MiniPAD.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Version - Kivy/OldVersion/Example.py">
+    <entry file="file://$PROJECT_DIR$/Version - Game Engine/OldVersion/Example.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="654" column="14" selection-start-line="654" selection-start-column="14" selection-end-line="654" selection-end-column="14" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Version - Kivy/OldVersion/Example.py">
+    <entry file="file://$PROJECT_DIR$/Version - Game Engine/OldVersion/Example.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="654" column="14" selection-start-line="654" selection-start-column="14" selection-end-line="654" selection-end-column="14" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Version - Kivy/RtMidi/MiniPAD.py">
+    <entry file="file://$PROJECT_DIR$/Version - Game Engine/RtMidi/MiniPAD.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Version - Kivy/OldVersion/Example.py">
+    <entry file="file://$PROJECT_DIR$/Version - Game Engine/OldVersion/Example.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Version - Kivy/RtMidi/MiniPAD.py">
+    <entry file="file://$PROJECT_DIR$/Version - Game Engine/RtMidi/MiniPAD.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Version - Kivy/RtMidi/MiniPAD.py">
+    <entry file="file://$PROJECT_DIR$/Version - Game Engine/RtMidi/MiniPAD.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -726,7 +725,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Version - Kivy/OldVersion/Example.py">
+    <entry file="file://$PROJECT_DIR$/Version - Game Engine/OldVersion/Example.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="406" column="0" selection-start-line="406" selection-start-column="0" selection-end-line="406" selection-end-column="0" />
@@ -734,35 +733,35 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Version - Kivy/OldVersion/__init__.py">
+    <entry file="file://$PROJECT_DIR$/Version - Game Engine/OldVersion/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Version - Kivy/RtMidi/MiniPAD.py">
+    <entry file="file://$PROJECT_DIR$/Version - Game Engine/RtMidi/MiniPAD.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="48" column="3" selection-start-line="48" selection-start-column="3" selection-end-line="48" selection-end-column="3" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Version - Kivy/RtMidi/__init__.py">
+    <entry file="file://$PROJECT_DIR$/Version - Game Engine/RtMidi/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Version - Kivy/Utils/__init__.py">
+    <entry file="file://$PROJECT_DIR$/Version - Game Engine/Utils/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Version - Kivy/Utils/launchpad_charset.py">
+    <entry file="file://$PROJECT_DIR$/Version - Game Engine/Utils/launchpad_charset.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="4" column="14" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="14" />
@@ -800,7 +799,7 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Version - Kivy/Main.kv">
+    <entry file="file://$PROJECT_DIR$/Version - Game Engine/Main.kv">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.29651162">
           <caret line="0" column="12" selection-start-line="0" selection-start-column="12" selection-end-line="0" selection-end-column="12" />
@@ -851,7 +850,7 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Version - Kivy/Main.py">
+    <entry file="file://$PROJECT_DIR$/Version - Game Engine/Main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-1.9651163">
           <caret line="158" column="0" selection-start-line="158" selection-start-column="0" selection-end-line="162" selection-end-column="33" />
@@ -861,8 +860,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.5944767">
-          <caret line="145" column="108" selection-start-line="145" selection-start-column="108" selection-end-line="145" selection-end-column="108" />
+        <state vertical-scroll-proportion="0.23401164">
+          <caret line="105" column="23" selection-start-line="105" selection-start-column="23" selection-end-line="105" selection-end-column="23" />
           <folding>
             <element signature="e#16#50#0" expanded="true" />
           </folding>
