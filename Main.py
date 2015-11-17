@@ -148,8 +148,6 @@ class App(pyglet.window.Window):
             x = message[1] // 16
             y = message[1] - (16 * x)
 
-            print(message, x, y, sep=' - ')
-
             if y < 3:
                 self.players[0].x, self.players[0].y = self.players[0].positions[(x * nbrButton) + y]
 
