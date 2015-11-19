@@ -1,5 +1,5 @@
 APP_NAME = 'Pong - PAD'
-APP_VERSION = '0.3.1'
+APP_VERSION = '0.5.0'
 
 # Graphical
 FULLSCREEN = True

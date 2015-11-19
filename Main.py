@@ -13,9 +13,6 @@ from pyglet.media import Player, SourceGroup
 from pyglet.text import *
 from pyglet.graphics import *
 from pyglet.sprite import *
-# import Numpy
-import numpy as np
-import matplotlib.pyplot as plt
 
 # Initialisation
 rs.path.append('data')
@@ -25,6 +22,7 @@ font.add_directory('data')
 # Ressources
 background = rs.image('background.jpg')
 paddle = rs.image('paddle.png')
+paddleSimple = rs.image('paddleSimple.png')
 ball = rs.image('ball.png')
 icon = pyglet.image.load('icon.png')
 music = pyglet.resource.media('music_background.mp3', False)
@@ -39,6 +37,7 @@ class Player(Sprite):
         self.colors = None
         self.score = 0
         self.window = window
+        self.minHeight = img.height
 
         self.positions = []
         self.init_pos()
@@ -53,19 +52,19 @@ class Player(Sprite):
         for i in range(nbrY):
             for j in range(nbrX // 2):
                 if self.NUMBER == 0:
-                    self.positions.append((j * interval_x, self.window.height - (i * interval_y) - paddle.height if self.window.height - (i * interval_y) - paddle.height > 0 else 0))
+                    self.positions.append((j * interval_x, self.window.height - (i * interval_y) - self.minHeight if self.window.height - (i * interval_y) - self.minHeight > 0 else 0))
                 if self.NUMBER == 1:
-                    self.positions.append((self.window.width - (j * interval_x) - 30, self.window.height - (i * interval_y) - paddle.height if self.window.height - (i * interval_y) - paddle.height > 0 else 0))
+                    self.positions.append((self.window.width - (j * interval_x) - 30, self.window.height - (i * interval_y) - self.minHeight if self.window.height - (i * interval_y) - self.minHeight > 0 else 0))
 
 
 class Ball(Sprite):
-    def __init__(self, img, x, y, batch):
-        super(Ball, self).__init__(img=img, x=x, y=y, batch=batch)
+    def __init__(self, img, x, y):
+        super(Ball, self).__init__(img=img, x=x, y=y)
         self.dx = -(800 / 1000)
         self.dy = 0 / 1000
         self.newX = 0
         self.newY = 0
-        self.maxBounceAngle = math.pi / 8
+        self.maxBounceAngle = math.pi / 9
 
 
 # Class for the move
@@ -107,17 +106,25 @@ class App(pyglet.window.Window):
         super(App, self).__init__(width=1920, height=1200, caption=G.APP_NAME + ' / ' + G.APP_VERSION, resizable=False, fullscreen=G.FULLSCREEN)
         self.music_player = pyglet.media.Player()
         self.batch = Batch()
+        self.secondPatch = Batch()
         self.keyboard = key.KeyStateHandler()
         self.pad = PAD()
 
         self.player1_score = Label('0', x=(self.width // 2) // 2 + 200, y=1100, font_size=60, font_name='Roboto Mono')
         self.player2_score = Label('0', x=self.width // 2 + (self.width // 2) // 2 - 200, y=1100, font_size=60, font_name='Roboto Mono')
-        self.players = [Player(0, paddle, 0, self.height // 2 - paddle.height // 2, self.batch, self), Player(1, paddle, self.width - paddle.width, self.height // 2 - paddle.height // 2, self.batch, self)]
-        self.ball = Ball(ball, self.width // 2 - (ball.width // 2), self.height // 2 - (ball.height // 2), batch=self.batch)
+
+        self.P1 = Player(0, paddle, 0, self.height // 2 - paddle.height // 2, self.batch, self)
+        self.P2 = Player(1, paddle, self.width - paddle.width, self.height // 2 - paddle.height // 2, self.batch, self)
+        self.P3 = Player(0, paddleSimple, 0, self.height // 2 - paddleSimple.height // 2, self.secondPatch, self)
+        self.P4 = Player(1, paddleSimple, self.width - paddleSimple.width, self.height // 2 - paddleSimple.height // 2, self.secondPatch, self)
+
+        self.ball = Ball(ball, self.width // 2 - (ball.width // 2), self.height // 2 - (ball.height // 2))
         self.level = Label('Choisissez le niveau', x=self.width // 2, y=self.height // 2 + 300, anchor_x='center', anchor_y='center', font_size=70)
         self.simple = Label('Facile', x=self.width // 2 - 400, y=self.height // 2, anchor_x='center', anchor_y='center', font_size=50, color=(0, 255, 0, 255))
         self.medium = Label('Moyen', x=self.width // 2, y=self.height // 2, anchor_x='center', anchor_y='center', font_size=50, color=(255, 191, 0, 255))
         self.hard = Label('Difficile', x=self.width // 2 + 400, y=self.height // 2, anchor_x='center', anchor_y='center', font_size=50, color=(255, 0, 0, 255))
+
+        self.players = [self.P1, self.P2]
 
         self.push_handlers(self.keyboard)
 
@@ -129,7 +136,7 @@ class App(pyglet.window.Window):
 
         self.music_player.volume = 1.0
         self.music_player.queue(self.looper)
-        # self.music_player.play()
+        self.music_player.play()
 
         self.niveau = 2
         self.start = False
@@ -143,10 +150,12 @@ class App(pyglet.window.Window):
 
         pyglet.clock.schedule_interval(self.update, 1 / G.MAX_FPS)
 
-    def level_1(self, message):
-        #if not self.canClick:
-        #    return 0
+    def reset_pad_button(self):
+        for i in range(0, 8):
+            for j in range(0, 8):
+                self.pad.send_message([128, i * 16 + j, 0])
 
+    def level_1(self, message):
         nbrButton = 4
         if message[0] == 144:
             x = message[1] // 16
@@ -157,11 +166,9 @@ class App(pyglet.window.Window):
 
             if y < 1:
                 self.players[0].x, self.players[0].y = self.players[0].positions[(x * nbrButton) + y]
-                self.canClick = False
 
             if y > 6:
                 self.players[1].x, self.players[1].y = self.players[1].positions[(x * nbrButton) + nbrButton + (nbrButton - y) - 1]
-                self.canClick = False
 
     def level_2(self, message):
         nbrButton = 4
@@ -209,12 +216,16 @@ class App(pyglet.window.Window):
                 if message[1] == b:
                     if b == 104:
                         self.niveau = 1
+                        self.init_led_lvl()
+                        self.players = [self.P3, self.P4]
                     elif b == 105:
                         self.niveau = 2
-                        self.init_led_lvl2()
+                        self.init_led_lvl()
+                        self.players = [self.P1, self.P2]
                     else:
                         self.niveau = 3
                         self.init_led_lvl3()
+                        self.players = [self.P1, self.P2]
                     self.start = True
                     self.freeze = False
 
@@ -250,35 +261,11 @@ class App(pyglet.window.Window):
         self.init_led()
         self.freeze = True
 
-    def calcul_pente(self):
-        a = self.ball.dx
-        b = self.ball.dy
-        x = 0
-        m = b / a
-        h = self.ball.newY - self.ball.y
-        print(h)
-        if self.ball.dx < 0:
-            x = 30
-            y = m * x + h
-        else:
-            x = 1890
-            y = m * x + h
-
-        if y < 0:
-            y += 575
-
-        if self.ball.x > 1700 or self.ball.x < 210:
-            self.Point = x, y
-            return True
-
-        return False
-
     def update(self, dt):
         if self.freeze:
             return 0
 
         dt *= 1000
-        p = None
         b = self.ball
         b.newX = b.x + b.dx * dt
         b.newY = b.y + b.dy * dt
@@ -299,16 +286,10 @@ class App(pyglet.window.Window):
             b.newY -= 2 * ((b.newY + b.width) - self.height)
             b.dy = -b.dy
 
-        if self.niveau == 1:
-            self.mysterious = self.calcul_pente()
-
-        if self.mysterious:
-            print(self.Point)
-
         if b.newX < paddle1.x + paddle1.width <= b.x:
             intersectX = paddle1.x + paddle1.width
             intersectY = b.y - ((b.x - (paddle1.x + paddle1.width)) * (b.y - b.newY)) / (b.x - b.newX)
-            if paddle1.y <= intersectY <= paddle1.y + paddle1.height:
+            if paddle1.y - 50 <= intersectY <= paddle1.y + paddle1.height:
                 relativeIntersectY = (paddle1.y + (paddle1.height / 2)) - intersectY
                 b.bounceAngle = (relativeIntersectY / (paddle1.height / 2)) * (math.pi / 2 - b.maxBounceAngle)
                 ballSpeed = math.sqrt(b.dx * b.dx + b.dy * b.dy)
@@ -326,7 +307,7 @@ class App(pyglet.window.Window):
         if b.newX > paddle2.x - paddle2.width >= b.x:
             intersectX = paddle2.x - paddle2.width
             intersectY = b.y - ((b.x - (paddle2.x - paddle2.width)) * (b.y - b.newY)) / (b.x - b.newX)
-            if paddle2.y - 300 <= intersectY <= paddle2.y + paddle2.height:
+            if paddle2.y - 50 <= intersectY <= paddle2.y + paddle2.height:
                 relativeIntersectY = (paddle2.y + (paddle2.height / 2)) - intersectY
                 b.bounceAngle = (relativeIntersectY / (paddle2.height / 2)) * (math.pi / 2 - b.maxBounceAngle)
                 ballSpeed = math.sqrt(b.dx * b.dx + b.dy * b.dy)
@@ -362,14 +343,18 @@ class App(pyglet.window.Window):
         if self.start:
             self.player1_score.draw()
             self.player2_score.draw()
-            self.batch.draw()
+            self.ball.draw()
+            if self.niveau == 1:
+                self.secondPatch.draw()
+            else:
+                self.batch.draw()
         else:
             self.level.draw()
             self.simple.draw()
             self.medium.draw()
             self.hard.draw()
 
-    def init_led_lvl2(self):
+    def init_led_lvl(self):
         for i in range(8):
             for j in range(1):
                 note = i * 16 + j
