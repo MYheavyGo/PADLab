@@ -7,7 +7,6 @@ import math
 # import MIDI
 import rtmidi_python as rtmidi
 # import Pyglet
-from builtins import print
 from pyglet import font, clock, app, resource as rs
 from pyglet.window import key
 from pyglet.media import Player, SourceGroup
@@ -16,6 +15,7 @@ from pyglet.graphics import *
 from pyglet.sprite import *
 # import Numpy
 import numpy as np
+import matplotlib.pyplot as plt
 
 # Initialisation
 rs.path.append('data')
@@ -62,10 +62,10 @@ class Ball(Sprite):
     def __init__(self, img, x, y, batch):
         super(Ball, self).__init__(img=img, x=x, y=y, batch=batch)
         self.dx = -(800 / 1000)
-        self.dy = 1 / 1000
+        self.dy = 0 / 1000
         self.newX = 0
         self.newY = 0
-        self.maxBounceAngle = math.pi / 12
+        self.maxBounceAngle = math.pi / 8
 
 
 # Class for the move
@@ -134,22 +134,43 @@ class App(pyglet.window.Window):
         self.niveau = 2
         self.start = False
         self.freeze = True
+        self.mysterious = False
+        self.canClick = False
 
-        self.ball.half_x = self.width // 2 - (ball.width // 2)
-        self.ball.half_y = self.height // 2 - (ball.height // 2)
+        self.ball.radius = 25
 
         self.init_led()
 
         pyglet.clock.schedule_interval(self.update, 1 / G.MAX_FPS)
 
     def level_1(self, message):
-        pass
+        #if not self.canClick:
+        #    return 0
+
+        nbrButton = 4
+        if message[0] == 144:
+            x = message[1] // 16
+            y = message[1] - (16 * x)
+
+            if y > 7:
+                return 0
+
+            if y < 1:
+                self.players[0].x, self.players[0].y = self.players[0].positions[(x * nbrButton) + y]
+                self.canClick = False
+
+            if y > 6:
+                self.players[1].x, self.players[1].y = self.players[1].positions[(x * nbrButton) + nbrButton + (nbrButton - y) - 1]
+                self.canClick = False
 
     def level_2(self, message):
         nbrButton = 4
         if message[0] == 144:
             x = message[1] // 16
             y = message[1] - (16 * x)
+
+            if y > 7:
+                return 0
 
             if y < 1:
                 self.players[0].x, self.players[0].y = self.players[0].positions[(x * nbrButton) + y]
@@ -163,6 +184,9 @@ class App(pyglet.window.Window):
             x = message[1] // 16
             y = message[1] - (16 * x)
 
+            if y > 7:
+                return 0
+
             if y < 3:
                 self.players[0].x, self.players[0].y = self.players[0].positions[(x * nbrButton) + y]
 
@@ -174,7 +198,7 @@ class App(pyglet.window.Window):
             if self.freeze is not True:
                 if self.niveau == 1:
                     self.level_1(message)
-                elif self.niveau == 2:
+                if self.niveau == 2:
                     self.level_2(message)
                 elif self.niveau == 3:
                     self.level_3(message)
@@ -197,13 +221,17 @@ class App(pyglet.window.Window):
     def reset_ball(self, winner=2):
         self.ball.x, self.ball.y = self.width / 2 - self.ball.width / 2, self.height / 2 - self.ball.height / 2
         if winner == 2:
-            self.ball.dx = 800 / 1000
+            r = randint(0, 2)
+            if r == 0:
+                self.ball.dx = 800 / 1000
+            elif r == 1:
+                self.ball.dx = -800 / 1000
         elif winner == 1:
-            self.ball.dx = -(800 / 1000)
-        elif winner == 0:
             self.ball.dx = 800 / 1000
+        elif winner == 0:
+            self.ball.dx = -800 / 1000
 
-        self.ball.dy = 1 / 1000
+        self.ball.dy = 0 / 1000
         self.reset_paddle()
 
     def reset_paddle(self):
@@ -222,17 +250,35 @@ class App(pyglet.window.Window):
         self.init_led()
         self.freeze = True
 
-    def on_key_press(self, symbol, modifiers):
-        if symbol == key.UP:
-            self.players[0].y += 20
-        if symbol == key.DOWN:
-            self.players[0].y = 77
+    def calcul_pente(self):
+        a = self.ball.dx
+        b = self.ball.dy
+        x = 0
+        m = b / a
+        h = self.ball.newY - self.ball.y
+        print(h)
+        if self.ball.dx < 0:
+            x = 30
+            y = m * x + h
+        else:
+            x = 1890
+            y = m * x + h
+
+        if y < 0:
+            y += 575
+
+        if self.ball.x > 1700 or self.ball.x < 210:
+            self.Point = x, y
+            return True
+
+        return False
 
     def update(self, dt):
         if self.freeze:
             return 0
 
         dt *= 1000
+        p = None
         b = self.ball
         b.newX = b.x + b.dx * dt
         b.newY = b.y + b.dy * dt
@@ -253,48 +299,49 @@ class App(pyglet.window.Window):
             b.newY -= 2 * ((b.newY + b.width) - self.height)
             b.dy = -b.dy
 
-        distanceBall = (paddle1.x - b.newX) ** 2 + (paddle1.y - b.newY) ** 2
-        print(distanceBall, (b.width + paddle1.width) * (b.width + paddle1.width))
-        if (distanceBall > (b.width + paddle1.width) * (b.width + paddle1.width)):
-            pass
-        else:
-            print('Collide')
+        if self.niveau == 1:
+            self.mysterious = self.calcul_pente()
 
+        if self.mysterious:
+            print(self.Point)
 
         if b.newX < paddle1.x + paddle1.width <= b.x:
             intersectX = paddle1.x + paddle1.width
             intersectY = b.y - ((b.x - (paddle1.x + paddle1.width)) * (b.y - b.newY)) / (b.x - b.newX)
-            print(b.y, b.x, paddle1.x, paddle1.width, b.y, b.newY, b.x, b.newX, intersectX, intersectY)
-            print(paddle1.y, paddle1.height, paddle1.y + paddle1.height)
             if paddle1.y <= intersectY <= paddle1.y + paddle1.height:
                 relativeIntersectY = (paddle1.y + (paddle1.height / 2)) - intersectY
-                bounceAngle = (intersectY / (paddle1.height / 2)) * (math.pi / 2 - b.maxBounceAngle)
+                b.bounceAngle = (relativeIntersectY / (paddle1.height / 2)) * (math.pi / 2 - b.maxBounceAngle)
                 ballSpeed = math.sqrt(b.dx * b.dx + b.dy * b.dy)
-                ballTravelLeft = (b.newY - intersectY) / (b.newY - b.y)
-                b.dx = ballSpeed * math.cos(bounceAngle)
-                b.dy = ballSpeed * -math.sin(bounceAngle)
-                b.newX = intersectX + ballTravelLeft * ballSpeed * math.cos(bounceAngle)
-                b.newY = intersectY + ballTravelLeft * ballSpeed * math.sin(bounceAngle)
+                if b.newY - b.y != 0:
+                    ballTravelLeft = (b.newY - intersectY) / (b.newY - b.y)
+                else:
+                    ballTravelLeft = 0
+                b.dx = ballSpeed * math.cos(b.bounceAngle)
+                b.dy = ballSpeed * -math.sin(b.bounceAngle)
+                b.newX = intersectX + ballTravelLeft * ballSpeed * math.cos(b.bounceAngle)
+                b.newY = intersectY + ballTravelLeft * ballSpeed * math.sin(b.bounceAngle)
 
-                b.dx += 0.05
+                b.dx += 0.07
 
         if b.newX > paddle2.x - paddle2.width >= b.x:
-            print(paddle2.x, paddle2.width)
             intersectX = paddle2.x - paddle2.width
             intersectY = b.y - ((b.x - (paddle2.x - paddle2.width)) * (b.y - b.newY)) / (b.x - b.newX)
-            if paddle2.y <= intersectY <= paddle2.y + paddle2.height:
+            if paddle2.y - 300 <= intersectY <= paddle2.y + paddle2.height:
                 relativeIntersectY = (paddle2.y + (paddle2.height / 2)) - intersectY
-                bounceAngle = (relativeIntersectY / (paddle2.height / 2)) * (math.pi / 2 - b.maxBounceAngle)
+                b.bounceAngle = (relativeIntersectY / (paddle2.height / 2)) * (math.pi / 2 - b.maxBounceAngle)
                 ballSpeed = math.sqrt(b.dx * b.dx + b.dy * b.dy)
-                ballTravelLeft = (b.newY - intersectY) / (b.newY - b.y)
-                b.dx = ballSpeed * math.cos(bounceAngle) * -1
-                b.dy = ballSpeed * math.sin(bounceAngle) * -1
-                b.newX = intersectX - ballTravelLeft * ballSpeed * math.cos(bounceAngle)
-                b.newY = intersectY - ballTravelLeft * ballSpeed * math.sin(bounceAngle)
+                if b.newY - b.y != 0:
+                    ballTravelLeft = (b.newY - intersectY) / (b.newY - b.y)
+                else:
+                    ballTravelLeft = 0
+                b.dx = ballSpeed * math.cos(b.bounceAngle) * -1
+                b.dy = ballSpeed * math.sin(b.bounceAngle) * -1
+                b.newX = intersectX - ballTravelLeft * ballSpeed * math.cos(b.bounceAngle)
+                b.newY = intersectY - ballTravelLeft * ballSpeed * math.sin(b.bounceAngle)
 
-                b.dx -= 0.05
+                b.dx -= 0.07
 
-        if b.newX < 0:
+        if b.newX < -100:
             paddle2.score += 1
             self.reset_ball(0)
             return
