@@ -2,15 +2,13 @@
 import globals as G
 
 # import Python function
-from random import randint, random
-import sys
-import math
+from random import randint
 
 # import MIDI library
 import rtmidi_python as rtmidi
 
 # import Pyglet library
-from pyglet import font, clock, app, resource as rs
+from pyglet import font, resource as rs
 from pyglet.window import key
 from pyglet.media import Player, SourceGroup
 from pyglet.text import *
@@ -293,7 +291,7 @@ class App(pyglet.window.Window):
         self.init_led()
         self.freeze = True
 
-    # Focntion qui met à jour le jeu, l'affichage
+    # Fonction qui met à jour le jeu, l'affichage
     def update(self, dt):
         if self.freeze:
             return 0
